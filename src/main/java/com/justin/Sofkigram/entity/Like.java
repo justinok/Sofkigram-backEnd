@@ -4,16 +4,17 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity(name = "Comment")
-@Table(name = "comment")
+@Entity(name = "Like")
+@Table(name = "like")
 @Data
-public class Comment {
-
+public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String message;
+    private String name;
+
+    private Long dni;
 
     private Long fkPostId;
 }

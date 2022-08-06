@@ -5,7 +5,7 @@ import com.justin.Sofkigram.entity.Post;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
+
 public interface IPostService {
 
     Post createPost(Post post);
