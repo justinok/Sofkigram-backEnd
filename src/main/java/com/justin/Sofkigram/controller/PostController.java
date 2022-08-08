@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/post")
+@CrossOrigin("*")
 public class PostController {
 
     @Autowired

@@ -17,6 +17,8 @@ public class PostServiceImplemetation implements IPostService {
    @Autowired
    private ICommentRepository commentRepository;
 
+
+
     @Override
     public Post createPost(Post post) {
         return postRepository.save(post);
@@ -29,6 +31,8 @@ public class PostServiceImplemetation implements IPostService {
         commentRepository.save(comment);
         return postRepository.save(post);
     }
+
+
 
     @Override
     public void deleteComment(Comment comment) {
