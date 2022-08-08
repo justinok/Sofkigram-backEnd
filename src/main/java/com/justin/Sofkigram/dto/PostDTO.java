@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
+import javax.validation.constraints.Size;
 @Data
 public class PostDTO {
     private Integer id;
