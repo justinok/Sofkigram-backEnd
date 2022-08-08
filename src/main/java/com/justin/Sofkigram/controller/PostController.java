@@ -8,6 +8,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ *  Post controller handles the creation and the delete for the post and
+ *  comments
+ *  Everything goes in the same url
+ *               http://localhost:8080/post/
+ *               Using PostMapping you can change all the endings on demand
+ *
+ * @author Justin Diaz - jusadiazjim@unal.edu.co
+ * @since 1.0
+ * @version 3.4.1
+ */
+
 @RestController
 @RequestMapping("/post")
 @CrossOrigin("*")
