@@ -1,5 +1,6 @@
 package com.justin.Sofkigram.controller;
 
+import com.justin.Sofkigram.dto.PostDTO;
 import com.justin.Sofkigram.entity.Comment;
 import com.justin.Sofkigram.entity.Post;
 import com.justin.Sofkigram.service.IPostService;
@@ -16,8 +17,12 @@ public class PostController {
     @Autowired
     private IPostService service;
 
+    @Autowired
+    private UserLikeService userLikeService;
+
+
     @GetMapping
-    public List<Post> getAllPost(){
+    public List<PostDTO> getAllPost(){
         return service.findAllPosts();
     }
 
