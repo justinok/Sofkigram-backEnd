@@ -10,7 +10,7 @@ public interface IPostService {
     Post createPost(Post post);
 
     Post createComment(Comment comment);
-
+    
 
 
     void deleteComment(Comment comment);

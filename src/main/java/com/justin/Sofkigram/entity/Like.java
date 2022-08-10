@@ -19,9 +19,10 @@ public class Like {
     public Like(){
 
     }
-    public Like(String name) {
+    public Like(String name, String DNI) {
         super();
         this.name = name;
+        this.DNI = DNI;
     }
 
     public long getId() {

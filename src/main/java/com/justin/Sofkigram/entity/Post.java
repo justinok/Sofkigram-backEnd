@@ -55,6 +55,11 @@ public class Post {
         this.likes = likes;
     }
 
+    public Post addLike(Like like){
+        this.likes.add(like);
+        return this;
+    }
+
     @OneToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
