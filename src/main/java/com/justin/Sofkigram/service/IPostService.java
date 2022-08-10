@@ -1,6 +1,7 @@
 package com.justin.Sofkigram.service;
 
 import com.justin.Sofkigram.entity.Comment;
+import com.justin.Sofkigram.entity.Like;
 import com.justin.Sofkigram.entity.Post;
 
 import java.util.List;
@@ -18,4 +19,11 @@ public interface IPostService {
     void deletePost(Post post);
 
     List<Post> findAllPosts();
+
+    /**
+     * like
+     */
+
+    Post createLike(Like like);
+    void deleteLike(Like like);
 }

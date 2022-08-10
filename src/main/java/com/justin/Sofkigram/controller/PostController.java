@@ -1,6 +1,7 @@
 package com.justin.Sofkigram.controller;
 
 import com.justin.Sofkigram.entity.Comment;
+import com.justin.Sofkigram.entity.Like;
 import com.justin.Sofkigram.entity.Post;
 import com.justin.Sofkigram.service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,4 +53,19 @@ public class PostController {
     public void deleteComment(@RequestBody Comment comment){
         service.deleteComment(comment);
     }
+
+    /**
+     * likes
+     */
+
+    @PostMapping("create/like")
+    public Post createLike(@RequestBody Like like){
+        return service.createLike(like);
+    }
+
+    @DeleteMapping("delete/like")
+    public void deleteLike(@RequestBody Like like){
+        service.deleteLike(like);
+    }
+
 }

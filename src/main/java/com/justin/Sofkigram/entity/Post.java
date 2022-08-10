@@ -42,6 +42,18 @@ public class Post {
         return this;
     }
 
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private List<Like> likes = new ArrayList<>();
+
+    public  Post addLike(Like like){
+        this.likes.add(like);
+
+        return this;
+    }
+
 
 
 }
