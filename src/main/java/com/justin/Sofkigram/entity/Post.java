@@ -4,7 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 /**
  *  The intention of this class is to connect with MySQL and mre specifically
  *  to connect with post table inside our Schema, so we call it a entity and
@@ -29,6 +32,28 @@ public class Post {
     private String message;
 
     private String title;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "post_likes",
+            joinColumns = { @JoinColumn(name = "post_id")},
+    inverseJoinColumns = {@JoinColumn(name = "like_id")})
+    private Set<Like> likes = new HashSet<>();
+
+    public Post(){
+
+    }
+
+    public Post(String message, String title) {
+        this.message = message;
+        this.title = title;
+    }
+
+    public Set<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Set<Like> likes) {
+        this.likes = likes;
+    }
 
     @OneToMany(
             cascade = CascadeType.ALL,
