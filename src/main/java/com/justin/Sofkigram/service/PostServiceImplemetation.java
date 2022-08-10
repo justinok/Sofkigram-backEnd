@@ -72,7 +72,7 @@ public class PostServiceImplemetation implements IPostService {
         Post post = postRepository.findById(like.getFkPostId()).get();
         post.addLike(like);
         likeRepository.save(like);
-        return postRepository.save(like);
+        return postRepository.save(post);
     }
 
 
