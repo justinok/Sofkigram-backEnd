@@ -1,5 +1,6 @@
 package com.justin.Sofkigram.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -59,7 +60,7 @@ public class Post {
         this.likes.add(like);
         return this;
     }
-
+   
     @OneToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
