@@ -1,73 +1,63 @@
 package com.justin.Sofkigram.entity;
 
-import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
-@Entity
-@Table(name = "user_like")
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity(name = "UserLike")
+@Table(name = "user_likes")
+@Data
 public class UserLike {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user_like", nullable = false)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-    @Column(name = "user_name", nullable = false)
     private String userName;
-
-    @Column(name = "dni", nullable = false, length = 20)
     private String dni;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "comments_has_user_like",
-            joinColumns = @JoinColumn(name = "user_like_id_user_like"),
-            inverseJoinColumns = @JoinColumn(name = "comments_id_comments"))
-    private Set<Comment> comments = new LinkedHashSet<>();
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(
+            name="post_like",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="post_id")
+    )
+    private List<Post> likedPosts = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_like_has_post",
-            joinColumns = @JoinColumn(name = "user_like_id_user_like"),
-            inverseJoinColumns = @JoinColumn(name = "post_id_post"))
-    private Set<Post> posts = new LinkedHashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name="comment_like",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "comment_id")
+    )
+    private List<Comment> likedComments = new ArrayList<>();
 
-    public Integer getId() {
-        return id;
+    public void addPost(Post newPost) {
+        this.likedPosts.add(newPost);
+        newPost.addLike(this);
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void removePost(Post targetPost){
+        this.likedPosts.remove(targetPost);
     }
 
-    public String getUserName() {
-        return userName;
+    public boolean containsPost(Post targetPost) {
+        return this.likedPosts.contains(targetPost);
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void addComment(Comment newComment) {
+        this.likedComments.add(newComment);
     }
 
-    public String getDni() {
-        return dni;
+    public void removeComment(Comment targetComment) {
+        this.likedComments.remove(targetComment);
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public boolean containsComment(Comment targetComment) {
+        return this.likedComments.contains(targetComment);
     }
-
-    public Set<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public Set<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(Set<Post> posts) {
-        this.posts = posts;
-    }
-
 }

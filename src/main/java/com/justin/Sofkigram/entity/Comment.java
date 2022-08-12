@@ -3,6 +3,8 @@ package com.justin.Sofkigram.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "Comment")
 @Table(name = "comment")
@@ -11,9 +13,25 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
+    private String content;
 
-    private String message;
+    @ManyToOne
+    @JoinColumn(name="post_id", nullable = false)
+    private Post post;
 
-    private Long fkPostId;
+    @ManyToMany(mappedBy = "likedComments")
+    private List<UserLike> likes = new ArrayList<>();
+
+    public void addLike(UserLike newLike) {
+        this.likes.add(newLike);
+    }
+
+    public void removeLike (UserLike targetLike) {
+        this.likes.remove(targetLike);
+    }
+
+    public int getNumberOfLikes(){
+        return this.likes.size();
+    }
 }

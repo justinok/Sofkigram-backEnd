@@ -1,8 +1,8 @@
 package com.justin.Sofkigram.controller;
 
 
-import com.justin.Sofkigram.dto.PostDTO;
-import com.justin.Sofkigram.service.PostService;
+import com.justin.Sofkigram.dto.CommentDTO;
+import com.justin.Sofkigram.service.CommentService;
 import com.justin.Sofkigram.utils.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,23 +11,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/post")
-public class PostController {
+@RequestMapping("/api/comment")
+public class CommentController {
     @Autowired
-    PostService postService;
-
-    @GetMapping
-    public List<PostDTO> getAllPosts(){
-        return postService.getAllPosts();
-    }
+    CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<?> createNewPost(@Valid PostDTO newPost, BindingResult result) {
+    public ResponseEntity<?> createNewComment(@Valid CommentDTO newComment, BindingResult result){
         if (result.hasErrors()) {
             AtomicReference<String> message = new AtomicReference<>("");
             result.getAllErrors().forEach(objectError -> message.set(message + objectError.getDefaultMessage()));
@@ -35,11 +29,12 @@ public class PostController {
             return new ResponseEntity<>(new ErrorMessage(message.toString()), HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(postService.addNewPost(newPost), HttpStatus.CREATED);
+        return new ResponseEntity<>(commentService.addNewComment(newComment), HttpStatus.CREATED)
+                ;
     }
 
-    @PutMapping()
-    public ResponseEntity<?> modifyPost(@Valid PostDTO editedPost, BindingResult result) {
+    @PutMapping
+    public ResponseEntity<?> editComent(@Valid CommentDTO editedComment, BindingResult result){
         if (result.hasErrors()) {
             AtomicReference<String> message = new AtomicReference<>("");
             result.getAllErrors().forEach(objectError -> message.set(message + objectError.getDefaultMessage()));
@@ -47,12 +42,11 @@ public class PostController {
             return new ResponseEntity<>(new ErrorMessage(message.toString()), HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(postService.editPost(editedPost), HttpStatus.CREATED);
+        return new ResponseEntity<>(commentService.editComment(editedComment), HttpStatus.CREATED);
     }
 
-
-    @DeleteMapping("/delete")
-    public void deletePost(@RequestParam(name = "id") Long id) {
-        postService.deletePost(id);
+    @DeleteMapping(value = "/delete")
+    public void deleteComment(@RequestParam(name = "id") long targetId) {
+        commentService.removeComment(targetId);
     }
 }
