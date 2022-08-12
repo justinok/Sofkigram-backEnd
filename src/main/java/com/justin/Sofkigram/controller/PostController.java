@@ -26,7 +26,7 @@ public class PostController {
         return postServiceImplementation.getAllPosts();
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create/post")
     public ResponseEntity<?> createNewPost(@Valid PostLikesDTO newPost, BindingResult result) {
         if (result.hasErrors()) {
             AtomicReference<String> message = new AtomicReference<>("");
@@ -38,7 +38,7 @@ public class PostController {
         return new ResponseEntity<>(postServiceImplementation.addNewPost(newPost), HttpStatus.CREATED);
     }
 
-    @PutMapping("/edit")
+    @PutMapping("/edit/post")
     public ResponseEntity<?> modifyPost(@Valid PostLikesDTO editedPost, BindingResult result) {
         if (result.hasErrors()) {
             AtomicReference<String> message = new AtomicReference<>("");
@@ -51,7 +51,7 @@ public class PostController {
     }
 
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/post")
     public void deletePost(@RequestParam(name = "id") Long id) {
         postServiceImplementation.deletePost(id);
     }

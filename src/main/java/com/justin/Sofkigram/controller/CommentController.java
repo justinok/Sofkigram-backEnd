@@ -21,7 +21,7 @@ public class CommentController {
     @Autowired
     CommentServiceImplementation commentServiceImplementation;
 
-    @PostMapping
+    @PostMapping("/create/comment")
     public ResponseEntity<?> createNewComment(@Valid CommentLikesDTO newComment, BindingResult result){
         if (result.hasErrors()) {
             AtomicReference<String> message = new AtomicReference<>("");
@@ -34,7 +34,7 @@ public class CommentController {
                 ;
     }
 
-    @PutMapping
+    @PutMapping("/edit/comment")
     public ResponseEntity<?> editComent(@Valid CommentLikesDTO editedComment, BindingResult result){
         if (result.hasErrors()) {
             AtomicReference<String> message = new AtomicReference<>("");
@@ -46,7 +46,7 @@ public class CommentController {
         return new ResponseEntity<>(commentServiceImplementation.editComment(editedComment), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "/delete")
+    @DeleteMapping(value = "/delete/comment")
     public void deleteComment(@RequestParam(name = "id") long targetId) {
         commentServiceImplementation.removeComment(targetId);
     }

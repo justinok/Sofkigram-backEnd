@@ -16,7 +16,7 @@ public class UserLikeController {
     @Autowired
     UserLikeServiceImplementation userLikeServiceImplementation;
 
-    @PostMapping
+    @PostMapping("/create/like")
     public int addNewLike(UserLikeDTO like) {
         return userLikeServiceImplementation.toggleLike(like);
     }
