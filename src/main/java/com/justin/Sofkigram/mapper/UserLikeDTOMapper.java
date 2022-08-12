@@ -3,7 +3,7 @@ package com.justin.Sofkigram.mapper;
 
 import com.justin.Sofkigram.dto.UserLikeDTO;
 import com.justin.Sofkigram.entity.UserLike;
-import com.justin.Sofkigram.repository.UserLikeRepository;
+import com.justin.Sofkigram.repository.IUserLikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class UserLikeDTOMapper {
 
     @Autowired
-    UserLikeRepository userLikeRepository;
+    IUserLikeRepository IUserLikeRepository;
 
     public UserLikeDTO userLikeMapper(UserLike userLike) {
         UserLikeDTO userLikeDTO = new UserLikeDTO();

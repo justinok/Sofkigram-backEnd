@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public abstract class DTOBlueprint {
+public abstract class LikesDTO {
     private long id;
 
     private int numberOfLikes;

@@ -2,8 +2,6 @@ package com.justin.Sofkigram.dto;
 
 import lombok.Data;
 
-import java.util.List;
-import java.util.Optional;
 
 @Data
 public class UserLikeDTO {

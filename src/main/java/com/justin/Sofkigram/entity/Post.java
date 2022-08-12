@@ -1,7 +1,6 @@
 package com.justin.Sofkigram.entity;
 
 import lombok.Data;
-import org.apache.catalina.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,8 +18,8 @@ public class Post {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "content")
-    private String content;
+    @Column(name = "message")
+    private String message;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();

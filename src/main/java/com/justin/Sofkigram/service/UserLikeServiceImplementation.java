@@ -6,36 +6,36 @@ import com.justin.Sofkigram.entity.Comment;
 import com.justin.Sofkigram.entity.Post;
 import com.justin.Sofkigram.entity.UserLike;
 import com.justin.Sofkigram.mapper.UserLikeDTOMapper;
-import com.justin.Sofkigram.repository.CommentRepository;
-import com.justin.Sofkigram.repository.PostRepository;
-import com.justin.Sofkigram.repository.UserLikeRepository;
+import com.justin.Sofkigram.repository.ICommentRepository;
+import com.justin.Sofkigram.repository.IPostRepository;
+import com.justin.Sofkigram.repository.IUserLikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class UserLikeService {
+public class UserLikeServiceImplementation {
     @Autowired
-    UserLikeRepository userLikeRepository;
+    IUserLikeRepository IUserLikeRepository;
 
     @Autowired
-    PostRepository postRepository;
+    IPostRepository IPostRepository;
 
     @Autowired
-    CommentRepository commentRepository;
+    ICommentRepository ICommentRepository;
 
     @Autowired
     UserLikeDTOMapper userLikeDTOMapper;
 
     public int toggleLike(UserLikeDTO newLike) {
-        Optional<UserLike> queryResult =  userLikeRepository.
+        Optional<UserLike> queryResult =  IUserLikeRepository.
                 findByDni(newLike.getDni());
 
-        UserLike targetLike = !queryResult.isEmpty() ? queryResult.get() : userLikeRepository.save(userLikeDTOMapper.dtoMapper(newLike));
+        UserLike targetLike = !queryResult.isEmpty() ? queryResult.get() : IUserLikeRepository.save(userLikeDTOMapper.dtoMapper(newLike));
 
         if (newLike.getPostId() != null) {
-            Post targetPost = postRepository.findById(newLike.getPostId()).get();
+            Post targetPost = IPostRepository.findById(newLike.getPostId()).get();
 
             if (targetLike.containsPost(targetPost)) {
                 targetLike.removePost(targetPost);
@@ -43,12 +43,12 @@ public class UserLikeService {
                 targetLike.addPost(targetPost);
             }
 
-            userLikeRepository.save(targetLike);
+            IUserLikeRepository.save(targetLike);
 
             return targetPost.getNumberOfLikes();
         }
 
-        Comment targetComment = commentRepository.findById(newLike.getCommentId()).get();
+        Comment targetComment = ICommentRepository.findById(newLike.getCommentId()).get();
 
         if (targetLike.containsComment(targetComment)) {
             targetLike.removeComment(targetComment);
@@ -56,7 +56,7 @@ public class UserLikeService {
             targetLike.addComment(targetComment);
         }
 
-        userLikeRepository.save(targetLike);
+        IUserLikeRepository.save(targetLike);
 
 
         return targetComment.getNumberOfLikes();

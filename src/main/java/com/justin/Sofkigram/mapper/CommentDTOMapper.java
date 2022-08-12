@@ -1,7 +1,7 @@
 package com.justin.Sofkigram.mapper;
 
 
-import com.justin.Sofkigram.dto.CommentDTO;
+import com.justin.Sofkigram.dto.CommentLikesDTO;
 import com.justin.Sofkigram.entity.Comment;
 import com.justin.Sofkigram.entity.Post;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,11 @@ public class CommentDTOMapper {
     @Autowired
     UserLikeDTOMapper userLikeDTOMapper;
 
-    public CommentDTO commentMapper(Comment comment) {
-        CommentDTO commentDTO = new CommentDTO();
+    public CommentLikesDTO commentMapper(Comment comment) {
+        CommentLikesDTO commentDTO = new CommentLikesDTO();
 
         commentDTO.setId(comment.getId());
-        commentDTO.setContent(comment.getContent());
+        commentDTO.setContent(comment.getMessage());
         commentDTO.setPostId(comment.getPost().getId());
 
         commentDTO.setLikes(comment.getLikes().stream().map(userLikeDTOMapper::userLikeMapper).toList());
@@ -28,10 +28,10 @@ public class CommentDTOMapper {
         return commentDTO;
     }
 
-    public Comment dtoToEntity(CommentDTO commentDTO, Post commentPost) {
+    public Comment dtoToEntity(CommentLikesDTO commentDTO, Post commentPost) {
         Comment comment = new Comment();
 
-        comment.setContent(commentDTO.getContent());
+        comment.setMessage(commentDTO.getContent());
         comment.setPost(commentPost);
 
         return comment;

@@ -1,7 +1,7 @@
 package com.justin.Sofkigram.mapper;
 
 
-import com.justin.Sofkigram.dto.PostDTO;
+import com.justin.Sofkigram.dto.PostLikesDTO;
 import com.justin.Sofkigram.entity.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,13 +19,13 @@ public class PostDTOMapper {
     it's not possible to create an instance of an abstract class (DTOMapper). Find a way to prevent this repetition.
     * */
 
-    public PostDTO postMapper(Post post) {
-        PostDTO postDTO = new PostDTO();
+    public PostLikesDTO postMapper(Post post) {
+        PostLikesDTO postDTO = new PostLikesDTO();
 
         postDTO.setId(post.getId());
         postDTO.setTitle(post.getTitle());
 
-        postDTO.setContent(post.getContent());
+        postDTO.setMessage(post.getMessage());
 
         postDTO.setComments(post.getComments().stream().map(commentDTOMapper::commentMapper).toList());
         postDTO.setLikes(post.getLikes().stream().map(userLikeDTOMapper::userLikeMapper).toList());
@@ -35,11 +35,11 @@ public class PostDTOMapper {
         return postDTO;
     }
 
-    public Post dtoMapper(PostDTO postDTO) {
+    public Post dtoMapper(PostLikesDTO postDTO) {
         Post post = new Post();
 
         post.setTitle(postDTO.getTitle());
-        post.setContent(postDTO.getContent());
+        post.setMessage(postDTO.getMessage());
 
         return post;
     }
