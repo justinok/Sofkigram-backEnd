@@ -1,4 +1,9 @@
 # Sofkigram-backEnd
+## Important!
+Branch with everything working is "DTO&Likes", every single branch is working but complete different functions to test, "DTO&Likes" is the branch that work for the challenge requeriments.Cant merge into the main branch because cause so much conflicts at the time and now it doesnt let me do that :')
+
+
+
 Project designed to handle multiple posts, likes and comments for the Sofka social Network
 
 This project was build using Spring Boot, so the file to run the project is _SofkiGram Application_
